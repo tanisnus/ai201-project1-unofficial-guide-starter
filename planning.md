@@ -190,6 +190,9 @@ Latency
      You can use ASCII art, a Mermaid diagram, or embed a sketch as an image.
      You'll use this diagram as context when prompting AI tools to implement each stage. -->
 
+![Architecture diagram](./images/pipeline-diagram.png)
+
+
 ---
 
 ## AI Tool Plan
