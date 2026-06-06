@@ -158,21 +158,11 @@ Latency
 
 | # | Question | Expected answer |
 |---|----------|-----------------|
-| 1 |What is the minimum GPA a California resident needs to be eligible to transfer to a UC?
- |2.4 (non-residents: 2.8). Note this is minimum eligibility, not a competitive GPA for admission. Source: UC Transfer Requirements (#11)
- |
-| 2 |Is a UC TAG a 100% guarantee of admission once approved?
- |No. TAG can be revoked if contract conditions aren’t met — e.g. missing transcripts, unmet GPA, incomplete required coursework. Sources: CC “Is TAG 100% guaranteed?” thread (#6), UC Davis TAG blog (#7)
- |
-| 3 |How do I find which community college courses satisfy my major prep for a specific UC campus?
- |Use ASSIST.org — select your CC, target UC, and major to see articulated/equivalent courses. Sources: ASSIST (#9), Edvisorly articulation guide (#8)
- |
-| 4 |How many units do I need to reach junior standing for UC transfer?
- |60 semester units or 90 quarter units of transferable coursework. Source: UC Transfer Requirements (#11)
- |
-| 5 |Can I use Pass/No Pass (P/NP) grades for courses required to transfer to a UC?
- |Generally no for major prep and most required transfer courses — UCs typically require letter grades. P/NP is usually limited (e.g., some GE). Source: College Confidential UC Transfers board (#5)
- |
+| 1 | What is the minimum GPA a California resident needs to be eligible to transfer to a UC? | 2.4 (non-residents: 2.8). Note this is minimum eligibility, not a competitive GPA for admission. Source: UC Transfer Requirements (#11) |
+| 2 | Is a UC TAG a 100% guarantee of admission once approved? | No. TAG can be revoked if contract conditions aren't met — e.g. missing transcripts, unmet GPA, incomplete required coursework. Sources: CC "Is TAG 100% guaranteed?" thread (#6), UC Davis TAG blog (#7) |
+| 3 | How do I find which community college courses satisfy my major prep for a specific UC campus? | Use ASSIST.org — select your CC, target UC, and major to see articulated/equivalent courses. Sources: ASSIST (#9), Edvisorly articulation guide (#8) |
+| 4 | How many units do I need to reach junior standing for UC transfer? | 60 semester units or 90 quarter units of transferable coursework. Source: UC Transfer Requirements (#11) |
+| 5 | Can I use Pass/No Pass (P/NP) grades for courses required to transfer to a UC? | Generally no for major prep and most required transfer courses — UCs typically require letter grades. P/NP is usually limited (e.g., some GE). Source: College Confidential UC Transfers board (#5) |
 
 ---
 
