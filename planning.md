@@ -49,11 +49,36 @@ This domain can be challenging for community college students to navigate becaus
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
+     Documents will be split into chucnks based on types of documents
+
+     1. ASSIST, UC TAG matrix, transfer requirements, application PDF will be under structure/official document category because it contains dense rules, tables, bullet lists.
+
+     2. College Confidential FAQ, Edvisorly, UC Davis blog will be under FAQ/Guide category because it includes Q&A and step-by-step sections.
+
+     3. Reddit, CC form threards will be under thread/discussion because it will consist of short posts & replies, anecdotes, and timelines.
+
+     - For FAQ/Guide (College Confidential FAQ, Edvirosrly, UC Davis blog)
+
+
 **Chunk size:**
+
+     1. Structure/official documen: Appproximate of 1,500-2,400 characters 
+
+     2. FAQ/Guide will mostly contain one question and one answer block. Approximate of 2,400 - 3,200 characters will be the chunk size
+
+     3. Reddit/CC form threards: Approximate of 800-1,600
 
 **Overlap:**
 
+     ~ 300 characters across all categories. For official docs, overlap is especially important: when a rule and its exception land on either side of a chunk boundary (e.g., minimum GPA in one paragraph, major-specific threshold in the next), the repeated 300 characters give retrieval a second chance to capture the full condition set.
+
 **Reasoning:**
+
+     1. Structure/official documents (TAG matrix, transfer requirements, application PDF) pack answers into tables, bullet lists, and multi-condition rules. Medium chunks (~1,500–2,400 characters) aim to keep a full requirement block together (e.g., campus + GPA + unit minimum + deadline). Overlap mitigates boundary splits where a base rule and its exception would otherwise land in separate chunks.
+
+     2. FAQ/Guide will mostly contain one question and one answer block. 
+
+     3. Reddit/CC form threards are usually one useful answer or a comment while the rest of a threat can be unreleated replies.
 
 ---
 
@@ -66,10 +91,61 @@ This domain can be challenging for community college students to navigate becaus
      support, accuracy on domain-specific text, latency? -->
 
 **Embedding model:**
+all-MiniLM-L6-v2 via sentence-transformers
 
-**Top-k:**
+**Top-k:** 
+5 because too few chunks can miss context, and excessive chucnks can add noise from unrelated forum replies.
 
 **Production tradeoff reflection:**
+
+
+Context Length
+
+     Drawbacks:
+          - MiniLM has a relatively small maximum sequence length compared to some newer embedding models.
+          - Long chunks may be truncated
+          -  Can lose important context
+
+     Alternatives:
+          - Faster embeddings
+          - Often more focused embeddings
+
+
+
+Multilingual Support
+
+     Drawbacks:
+          - Primarily optimized for English retrieval.
+          - Cross-language retrieval quality may be inconsistent.
+          - May perform poorly if users submit queries in languages different from the source documents.
+
+     Alternatives:
+          - BAAI/bge-m3
+          - paraphrase-multilingual-MiniLM-L12-v2
+          - multilingual-e5-large
+          These models are designed to map semantically equivalent text from different languages into similar vector spaces.
+
+Accuracy on domain-specific text
+
+     Drawbacks:
+          - General-purpose model; not specifically trained on college admissions, transfer requirements, or educational advising content.
+          - May miss subtle relationships between admissions terminology and forum language.
+          - Can retrieve semantically similar but less relevant forum posts when terminology is ambiguous.
+
+     Alternatives:
+          - text-embedding-3-large — stronger semantic understanding and retrieval accuracy.
+          - BAAI/bge-large-en-v1.5 — higher-quality open-source retrieval model.
+          - Domain-specific embedding models (if available for education/admissions data).
+
+Latency
+
+     Drawbacks:
+          - Lower retrieval quality compared to larger embedding models.
+          - May require more tuning of chunk size and Top-k to achieve similar retrieval performance.
+
+     Alternatives:
+          - text-embedding-3-large — higher retrieval quality but slower due to API calls and larger model complexity.
+          - BAAI/bge-large-en-v1.5 — better retrieval accuracy but increased inference time and hardware requirements.
 
 ---
 
@@ -82,11 +158,21 @@ This domain can be challenging for community college students to navigate becaus
 
 | # | Question | Expected answer |
 |---|----------|-----------------|
-| 1 | | |
-| 2 | | |
-| 3 | | |
-| 4 | | |
-| 5 | | |
+| 1 |What is the minimum GPA a California resident needs to be eligible to transfer to a UC?
+ |2.4 (non-residents: 2.8). Note this is minimum eligibility, not a competitive GPA for admission. Source: UC Transfer Requirements (#11)
+ |
+| 2 |Is a UC TAG a 100% guarantee of admission once approved?
+ |No. TAG can be revoked if contract conditions aren’t met — e.g. missing transcripts, unmet GPA, incomplete required coursework. Sources: CC “Is TAG 100% guaranteed?” thread (#6), UC Davis TAG blog (#7)
+ |
+| 3 |How do I find which community college courses satisfy my major prep for a specific UC campus?
+ |Use ASSIST.org — select your CC, target UC, and major to see articulated/equivalent courses. Sources: ASSIST (#9), Edvisorly articulation guide (#8)
+ |
+| 4 |How many units do I need to reach junior standing for UC transfer?
+ |60 semester units or 90 quarter units of transferable coursework. Source: UC Transfer Requirements (#11)
+ |
+| 5 |Can I use Pass/No Pass (P/NP) grades for courses required to transfer to a UC?
+ |Generally no for major prep and most required transfer courses — UCs typically require letter grades. P/NP is usually limited (e.g., some GE). Source: College Confidential UC Transfers board (#5)
+ |
 
 ---
 
@@ -96,9 +182,13 @@ This domain can be challenging for community college students to navigate becaus
      Consider: noisy or inconsistent documents, missing source attribution, off-topic
      retrieval, chunks that split key information across boundaries. -->
 
-1.
+1. Official UC requirements change yearly, but Reddit and College Confidential threads may be from 2022–2024 with old GPAs, deadlines, or policies. The model could retrieve an outdated forum post and present it as current fact, or blend official and unofficial guidance without flagging the conflict.
 
-2.
+
+
+2. Dense official docs (TAG matrix PDF, transfer requirements page) often put a rule in one line and exceptions in the next (e.g. minimum GPA + major-specific higher thresholds). Fixed-size chunking with limited overlap could split “2.4 minimum” from “but Engineering requires 3.2,” so retrieval returns only half the answer.
+
+
 
 ---
 
@@ -123,6 +213,28 @@ This domain can be challenging for community college students to navigate becaus
      "I'll use AI to help me code" is not a plan.
      "I'll give Claude my Chunking Strategy section and ask it to implement chunk_text()
      with my specified chunk size and overlap" is a plan. -->
+
+     AI tool: Claude & Cursor
+
+     Input: 
+          - Chunking Strategy + Documents table from planning.md, requirements.txt,
+          - sample files in documents/ (.txt, .html, .pdf from UC sources and scraped forum posts).
+          - 
+
+     Output
+          - ingest.py — load files from documents/, strip HTML where needed, extract PDF text with pdfplumber
+          - chunk.py — chunk_text(text, category) with three sizes (official: 2000, FAQ: 2800, thread: 1200 chars) and 300-char overlap; tag each chunk with source, category, and url
+          - A source-to-category map (e.g. TAG matrix → official, r/uctransfer → thread)
+
+     Verification:
+          - Run ingestion on all 12 sources; print total chunk count per category
+          - Manually inspect 2–3 chunks per category — full sentences, no mid-word cuts, metadata present
+          - Confirm official PDF chunks include complete GPA/requirement lines, not fragments
+
+
+
+
+
 
 **Milestone 3 — Ingestion and chunking:**
 
