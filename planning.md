@@ -11,6 +11,13 @@
 
 <!-- What domain did you choose? Why is this knowledge valuable and hard to find through official channels? -->
 
+Transfer pathway from community colleges, CA CCC, to 4-year universities, UC/CSU.
+
+Having an accurate information on transfer pathway is crucial because taking one wrong step can prevent students from being admitted to 4-year universities. This knowledge is also valuable in financial and timing perspective because being unaware of what set of courses to take can eventually lead to loss of financial aid and spending more time than necessary at a community college.
+
+This domain can be challenging for community college students to navigate because requirements can differ, depending on various factors such as major requirements, general education, sepcific school requirements, and units requirements. Additionally, transfer requirements often change each year, which can possibliy creat confusion amongs transfer students. Some universities official website also have outdated transfer requirements. 
+
+
 ---
 
 ## Documents
@@ -20,16 +27,18 @@
 
 | # | Source | Description | URL or location |
 |---|--------|-------------|-----------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-| 9 | | | |
-| 10 | | | |
+| 1 | r/uctransfer (subreddit) | Unofficial: day-to-day transfer Q&A, admit results, real timelines | https://www.reddit.com/r/uctransfer/ |
+| 2 | r/CollegeTransfer (subreddit) | Unofficial: general transfer advice beyond just UC | https://www.reddit.com/r/CollegeTransfer/ |
+| 3 | r/ApplyingToCollege (transfer posts) | Unofficial: essays, application strategy, decision threads | https://www.reddit.com/r/ApplyingToCollege/ |
+| 4 | College Confidential — UC Transfer FAQs Part 1 | Unofficial curated FAQ: TAG, IGETC, TAP programs, unit caps | https://talk.collegeconfidential.com/t/uc-transfer-faqs-part-1/1996661 |
+| 5 | College Confidential — UC Transfers board | Unofficial forum threads: rescinded admits, GPA by major, P/NP | https://talk.collegeconfidential.com/c/transfer-students/uc-transfers/76 |
+| 6 | College Confidential — "Is TAG 100% guaranteed?" thread | Unofficial: why TAGs get revoked (missing transcripts, unmet conditions) | https://talk.collegeconfidential.com/t/do-all-students-that-get-their-tag-approved-have-a-100-chance-of-being-admitted/1345277 |
+| 7 | UC Davis student TAG blog | First-person walkthrough of the TAG process and pitfalls | https://www.ucdavis.edu/admissions/blog/transfer-admission-guarantee-guide-attend-your-dream-school |
+| 8 | Edvisorly — "What is an Articulation Agreement?" | Unofficial guide: plain-English explanation of how credits transfer | https://www.edvisorly.com/student-guides/what-is-an-articulation-agreement |
+| 9 | ASSIST.org | Official: which CC courses satisfy major + GE requirements | https://assist.org/ |
+| 10 | UC TAG matrix (2026–27) | Official: exact GPA, unit, and deadline requirements per campus | https://admission.universityofcalifornia.edu/_assets/files/transfer-requirements/uc-tag-matrix_2026-2027.pdf |
+| 11 | UC Transfer Requirements page | Official: junior standing, 7-course pattern, min GPA (2.4 res / 2.8 nonres) | https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/uc-transfer-programs/transfer-admission-guarantee-tag.html |
+| 12 | UC Transfer Application Guide (PDF) | Official: importing TAP coursework, TAU, deadlines | https://admission.universityofcalifornia.edu/_assets/files/how-to-apply/application-guide-transfer-applicants.pdf |
 
 ---
 
