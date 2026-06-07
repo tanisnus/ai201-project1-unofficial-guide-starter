@@ -1,3 +1,8 @@
+SOURCE: Reddit UC Transfer Posts
+URL: https://www.reddit.com/r/uctransfer/
+CATEGORY: thread
+========================================
+
 POST: C Grade for TAG Requirement
 SUBREDDIT: r/uctransfer
 URL: https://www.reddit.com/r/uctransfer/comments/1exhdje/c_grade_for_tag_requirement/
