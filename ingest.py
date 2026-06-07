@@ -72,6 +72,61 @@ def load_txt(filepath):
     }
 
 
+def extract_pdf_text(filepath):
+    """
+    Extract text from a PDF, handling multi-column layouts.
+    Splits each page into left and right halves and reads each separately,
+    then joins them in reading order.
+    Also strips page headers/footers (lines with page numbers).
+    """
+    import re
+    text_parts = []
+
+    # PDFs that use tables/complex layouts — skip column splitting
+    table_heavy_pdfs = ["uc_tag_matrix.pdf"]
+    use_columns = os.path.basename(filepath) not in table_heavy_pdfs
+
+    with pdfplumber.open(filepath) as pdf:
+        print(f"    ({len(pdf.pages)} pages)")
+        for page in pdf.pages:
+            width = page.width
+            height = page.height
+
+            if use_columns:
+                # Try splitting into left and right columns
+                left = page.crop((0, 0, width / 2, height))
+                right = page.crop((width / 2, 0, width, height))
+
+                left_text = left.extract_text() or ""
+                right_text = right.extract_text() or ""
+
+                # If one side is empty, fall back to full page extraction
+                if not left_text.strip() or not right_text.strip():
+                    page_text = page.extract_text() or ""
+                else:
+                    page_text = left_text + "\n" + right_text
+            else:
+                page_text = page.extract_text() or ""
+
+            # Remove page header/footer lines (short lines with page numbers)
+            lines = page_text.split("\n")
+            cleaned_lines = []
+            for line in lines:
+                stripped = line.strip()
+                # Skip lines that look like page headers/footers
+                if re.search(r'UNDERGRADUATE ADMISSIONS|APPLICATION GUIDE TRANSFER \d+', stripped):
+                    continue
+                if re.match(r'^\d+$', stripped):  # lone page numbers
+                    continue
+                cleaned_lines.append(line)
+
+            page_text = "\n".join(cleaned_lines).strip()
+            if page_text:
+                text_parts.append(page_text)
+
+    return "\n\n".join(text_parts).strip()
+
+
 def load_pdf(filepath):
     """Extract text from a PDF using pdfplumber."""
     filename = os.path.basename(filepath)
@@ -81,14 +136,7 @@ def load_pdf(filepath):
         "category": "official",
     })
 
-    text_parts = []
-    with pdfplumber.open(filepath) as pdf:
-        for page in pdf.pages:
-            page_text = page.extract_text()
-            if page_text:
-                text_parts.append(page_text)
-
-    full_text = "\n".join(text_parts).strip()
+    full_text = extract_pdf_text(filepath)
 
     return {
         "text": full_text,

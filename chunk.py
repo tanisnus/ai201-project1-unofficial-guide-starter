@@ -31,6 +31,8 @@ def clean_text(text):
     """
     # Remove zero-width and invisible unicode characters
     text = re.sub(r'[​‌‍﻿­]', '', text)
+    # Remove --- post separators
+    text = re.sub(r'\n---+\n', '\n\n', text)
     # Collapse 3+ newlines into 2
     text = re.sub(r'\n{3,}', '\n\n', text)
     # Strip
@@ -49,7 +51,7 @@ def chunk_text(text, category):
     text_length = len(text)
 
     while start < text_length:
-        end = start + chunk_size
+        end = min(start + chunk_size, text_length)
 
         # If we're not at the end, try to break at a paragraph or sentence
         if end < text_length:
@@ -68,9 +70,21 @@ def chunk_text(text, category):
             chunks.append(chunk)
 
         # Move forward by chunk_size minus overlap
-        start = end - OVERLAP
-        if start <= 0:
-            break
+        next_start = end - OVERLAP
+        # Always move forward to prevent infinite loop
+        if next_start <= start:
+            next_start = start + chunk_size
+
+        # Snap next_start to the beginning of the next sentence
+        # so chunks don't start mid-word or mid-sentence
+        sentence_start = text.find('. ', next_start)
+        newline_start = text.find('\n', next_start)
+        if newline_start != -1 and newline_start < next_start + 200:
+            start = newline_start + 1
+        elif sentence_start != -1 and sentence_start < next_start + 200:
+            start = sentence_start + 2
+        else:
+            start = next_start
 
     return chunks
 
