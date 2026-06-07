@@ -26,17 +26,17 @@ PDF_METADATA = {
 }
 
 
-def parse_txt_header(lines):
+def parse_txt_header(lines: list[str]) -> tuple[dict, int]:
     """
     Reads the header lines at the top of a .txt file.
     Looks for SOURCE:, URL:, CATEGORY: keys.
     Returns (metadata dict, index where body starts)
     """
-    metadata = {"source": "", "url": "", "category": ""}
-    body_start = 0
+    metadata: dict = {"source": "", "url": "", "category": ""}
+    body_start: int = 0
 
     for i, line in enumerate(lines):
-        line_stripped = line.strip()
+        line_stripped: str = line.strip()
         if line_stripped.startswith("SOURCE:"):
             metadata["source"] = line_stripped.replace("SOURCE:", "").strip()
         elif line_stripped.startswith("URL:"):
@@ -55,10 +55,10 @@ def parse_txt_header(lines):
     return metadata, body_start
 
 
-def load_txt(filepath):
+def load_txt(filepath: str) -> dict:
     """Load a .txt file, parse its header, return a document dict."""
     with open(filepath, "r", encoding="utf-8") as f:
-        lines = f.readlines()
+        lines: list[str] = f.readlines()
 
     metadata, body_start = parse_txt_header(lines)
     body = "".join(lines[body_start:]).strip()
@@ -127,16 +127,16 @@ def extract_pdf_text(filepath):
     return "\n\n".join(text_parts).strip()
 
 
-def load_pdf(filepath):
+def load_pdf(filepath: str) -> dict:
     """Extract text from a PDF using pdfplumber."""
-    filename = os.path.basename(filepath)
-    metadata = PDF_METADATA.get(filename, {
+    filename: str = os.path.basename(filepath)
+    metadata: dict = PDF_METADATA.get(filename, {
         "source": filename,
         "url": "",
-        "category": "official",
+        "category": "official",    
     })
 
-    full_text = extract_pdf_text(filepath)
+    full_text: str = extract_pdf_text(filepath)
 
     return {
         "text": full_text,
@@ -147,12 +147,12 @@ def load_pdf(filepath):
     }
 
 
-def load_all_documents():
+def load_all_documents() -> list[dict]:
     """Load all .txt and .pdf files from the documents/ folder."""
-    documents = []
+    documents: list[dict] = []
 
     for filename in os.listdir(DOCUMENTS_DIR):
-        filepath = os.path.join(DOCUMENTS_DIR, filename)
+        filepath: str = os.path.join(DOCUMENTS_DIR, filename)
 
         if filename.endswith(".txt"):
             doc = load_txt(filepath)

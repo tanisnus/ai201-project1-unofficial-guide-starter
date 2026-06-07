@@ -94,7 +94,7 @@ This domain can be challenging for community college students to navigate becaus
 all-MiniLM-L6-v2 via sentence-transformers
 
 **Top-k:** 
-5 because too few chunks can miss context, and excessive chucnks can add noise from unrelated forum replies.
+5 because too few chunks can miss context, and excessive chunks can add noise from unrelated forum replies.
 
 **Production tradeoff reflection:**
 
