@@ -72,6 +72,30 @@ Documents are split by category (`official`, `faq`, `thread`) with different chu
 
 **Final chunk count:** **71** chunks across 10 files.
 
+### Sample Chunks
+
+Five labeled chunks from the pipeline (one per category, plus two additional examples):
+
+**Chunk 1** — `reddit_course_to_transfer.txt` (thread, 714 chars)
+
+> POST: Where do I look for courses I need to transfer to a UC? … I saw it was under the UC transfer pathways … as I'm looking at the Assist website … some of the campuses had other required courses that departed from what the Transfer Pathway website listed.
+
+**Chunk 2** — `uc_transfer_requirements.txt` (official, 1,324 chars)
+
+> Minimum GPA for UC transfer eligibility: California residents need at least a 2.4 GPA in UC-transferable courses. Non-residents need at least a 2.8 GPA. … Earn at least a 2.4 GPA in UC-transferable courses (2.8 if you're a nonresident). Some campuses and majors may require a higher GPA for admission selection.
+
+**Chunk 3** — `uc_davis_tag_blog.txt` (faq, 2,581 chars)
+
+> Having a UC Davis Transfer Admission Guarantee (TAG) can put your mind at ease, knowing that you have guaranteed admission in your specific major. … Students must meet all of their TAG criteria to stay qualified. If their TAG gets accepted, they need to uphold their conditions until they transfer …
+
+**Chunk 4** — `edvisorly.txt` (faq, 2,718 chars)
+
+> Credit application: Agreements specify how transferred credits apply, whether toward major requirements, general education, or electives … Articulation agreements detail any conditions like minimum GPA, full-time enrollment, or timely degree completion …
+
+**Chunk 5** — `uc_tag_matrix.pdf` (official, 1,988 chars)
+
+> UC Transfer Admission Guarantee (TAG) for students applying for 2026–27 admission. Six University of California (UC) campuses offer guaranteed admission to students from all California community colleges (CCC). Interested students must meet both the shared TAG criteria as well as campus-specific requirements to qualify for a TAG.
+
 ---
 
 ## Embedding Model
@@ -90,6 +114,48 @@ Documents are split by category (`official`, `faq`, `thread`) with different chu
 - **Multilingual support:** Optimized for English; cross-language retrieval may be inconsistent. Alternatives: `BAAI/bge-m3`, `multilingual-e5-large`.
 - **Domain-specific accuracy:** General-purpose model may miss subtle admissions terminology. Alternatives: `text-embedding-3-large`, `BAAI/bge-large-en-v1.5`.
 - **Latency:** MiniLM is fast and runs locally; larger API-hosted models improve quality but add cost and latency.
+
+---
+
+## Retrieval Test Examples
+
+Three queries run through `retrieve.py` (top-5 chunks, cosine distance shown):
+
+### Example 1 — Minimum GPA
+
+**Query:** What is the minimum GPA a California resident needs to be eligible to transfer to a UC?
+
+| Rank | Distance | Source | Snippet |
+|------|----------|--------|---------|
+| 1 | 0.204 | UC Admissions (`uc_transfer_requirements.txt`) | *"California residents need at least a 2.4 GPA in UC-transferable courses. Non-residents need at least a 2.8 GPA."* |
+| 2 | 0.265 | College Confidential FAQ | *"A top criteria will be your GPA and the completion of the major requirements at each UC."* |
+| 3 | 0.302 | UC Admissions (`uc_adimission_assist.txt`) | *"Earn at least a 2.4 GPA in UC-transferable courses (2.8 if you're a nonresident)."* |
+
+**Why these chunks are relevant:** Result 1 is a direct hit — the chunk opens with the exact GPA eligibility rule. Results 2–3 reinforce the same 2.4 / 2.8 threshold from unofficial FAQ context and a second official UC page, giving the generator multiple consistent passages.
+
+### Example 2 — TAG guarantee
+
+**Query:** Is a UC TAG a 100% guarantee of admission once approved?
+
+| Rank | Distance | Source | Snippet |
+|------|----------|--------|---------|
+| 1 | 0.341 | UC TAG Matrix (`uc_tag_matrix.pdf`) | *"Six UC campuses offer guaranteed admission … students must meet both the shared TAG criteria as well as campus-specific requirements."* |
+| 2 | 0.358 | UC TAG Matrix | *"Must submit a Transfer Academic Update (TAU) by January 31, 2026 … Must meet all campus-specific TAG criteria."* |
+| 4 | 0.378 | UC Davis TAG Blog | *"Students must meet all of their TAG criteria to stay qualified. If their TAG gets accepted, they need to uphold their conditions until they transfer."* |
+
+**Why these chunks are relevant:** The query asks about post-approval guarantees. The TAG matrix chunks define ongoing obligations (TAU deadline, campus criteria), and the Davis blog chunk explicitly states students must *uphold conditions until transfer* — the nuance needed for a conditional answer rather than a flat "100% yes."
+
+### Example 3 — Major prep / ASSIST
+
+**Query:** How do I find which community college courses satisfy my major prep for a specific UC campus?
+
+| Rank | Distance | Source | Snippet |
+|------|----------|--------|---------|
+| 1 | 0.329 | UC Admissions | *"Use the ASSIST tool to help you find community college courses that will transfer to UC."* |
+| 2 | 0.352 | UC Admissions | *"Visit ASSIST to see the major preparation coursework expected by each campus or refer to UC's Transfer Pathways."* |
+| 4 | 0.386 | Reddit (`reddit_course_to_transfer.txt`) | *"I'm looking at the Assist website to see which classes translate over … some campuses had other required courses that departed from what the Transfer Pathway website listed."* |
+
+**Why these chunks are relevant:** Results 1–2 name ASSIST as the official tool for major-prep course lookup. Result 4 adds a student-reported caveat that campus-specific requirements can differ from Transfer Pathways — useful context the generator can surface when answering.
 
 ---
 
@@ -127,15 +193,70 @@ Source attribution is **programmatic**, not left to the LLM. After generation, `
 1. Builds a deduplicated source list from retrieved chunk metadata (`source`, `url`, `filename`) via `_build_source_attributions()`
 2. Appends a `**Sources:**` block to every answer via `_format_sources_block()` — the LLM is instructed **not** to write its own bibliography (system prompt rule 6)
 
-Example output format:
+**Example response 1 — GPA query:**
 
 ```
-[Answer text in plain prose, may name sources like "according to UC Admissions"]
+According to UC Admissions, the minimum GPA a California resident needs to be eligible to transfer to a UC is at least a 2.4 GPA in UC-transferable courses.
 
 ---
 **Sources:**
-- [1] UC Admissions — https://admission.universityofcalifornia.edu/...
-- [2] College Confidential — UC Transfer FAQs Part 1 — https://talk.collegeconfidential.com/...
+- [1] UC Admissions — https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/basic-requirements.html
+- [2] College Confidential — UC Transfer FAQs Part 1 — https://talk.collegeconfidential.com/t/uc-transfer-faqs-part-1/1996661
+- [3] UC Admissions — https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/
+```
+
+**Example response 2 — ASSIST / major prep query:**
+
+```
+To find which community college courses satisfy your major prep for a specific UC campus, you can use the ASSIST tool. According to UC Admissions, ASSIST will help you find community college courses that will transfer to UC and satisfy your major preparation requirements. You can also refer to UC's Transfer Pathways, which is a single set of courses you can take to prepare for your major on any of the nine undergraduate campuses.
+
+---
+**Sources:**
+- [1] UC Admissions — https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/
+- [2] UC Admissions — https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/basic-requirements.html
+- [3] Reddit — https://www.reddit.com/r/TransferStudents/comments/1cgmqsr/where_do_i_look_for_courses_i_need_to_transfer_to/
+- [4] UC Transfer Application Guide — https://admission.universityofcalifornia.edu/_assets/files/how-to-apply/application-guide-transfer-applicants.pdf
+```
+
+**Out-of-scope query example:**
+
+**Query:** What is the best pizza near UCLA?
+
+**System response:**
+
+```
+I don't have enough information in my sources to answer that question. This assistant only answers questions about California community college to UC transfer pathways using its indexed documents.
+```
+
+(Refusal is triggered when no chunks pass the relevance filter, or when the LLM emits the exact insufficient-context sentence.)
+
+---
+
+## Query Interface
+
+The app is a Gradio web UI (`app.py`). Run with `python app.py`.
+
+**Input:** `Your question` — a text box where the user types a transfer-related question (with built-in example prompts).
+
+**Output:** A markdown panel showing:
+- `**Status:**` — either `Answer generated from retrieved sources` or `Refused — insufficient context`
+- The grounded answer body
+- A programmatic `**Sources:**` block appended by `generate.py`
+
+**Sample interaction:**
+
+```
+User: How many units do I need to reach junior standing for UC transfer?
+
+System:
+**Status:** Answer generated from retrieved sources
+
+To reach junior standing for UC transfer, you must complete at least 60 semester or 90 quarter UC-transferable units, according to UC Admissions and the UC TAG Matrix 2026-27.
+
+---
+**Sources:**
+- [1] UC Admissions — https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/basic-requirements.html
+- [2] UC TAG Matrix 2026-27 — https://admission.universityofcalifornia.edu/_assets/files/transfer-requirements/uc-tag-matrix_2026-2027.pdf
 ```
 
 ---
