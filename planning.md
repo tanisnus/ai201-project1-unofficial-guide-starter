@@ -27,18 +27,16 @@ This domain can be challenging for community college students to navigate becaus
 
 | # | Source | Description | URL or location |
 |---|--------|-------------|-----------------|
-| 1 | r/uctransfer (subreddit) | Unofficial: day-to-day transfer Q&A, admit results, real timelines | https://www.reddit.com/r/uctransfer/ |
-| 2 | r/CollegeTransfer (subreddit) | Unofficial: general transfer advice beyond just UC | https://www.reddit.com/r/CollegeTransfer/ |
-| 3 | r/ApplyingToCollege (transfer posts) | Unofficial: essays, application strategy, decision threads | https://www.reddit.com/r/ApplyingToCollege/ |
-| 4 | College Confidential — UC Transfer FAQs Part 1 | Unofficial curated FAQ: TAG, IGETC, TAP programs, unit caps | https://talk.collegeconfidential.com/t/uc-transfer-faqs-part-1/1996661 |
-| 5 | College Confidential — UC Transfers board | Unofficial forum threads: rescinded admits, GPA by major, P/NP | https://talk.collegeconfidential.com/c/transfer-students/uc-transfers/76 |
-| 6 | College Confidential — "Is TAG 100% guaranteed?" thread | Unofficial: why TAGs get revoked (missing transcripts, unmet conditions) | https://talk.collegeconfidential.com/t/do-all-students-that-get-their-tag-approved-have-a-100-chance-of-being-admitted/1345277 |
-| 7 | UC Davis student TAG blog | First-person walkthrough of the TAG process and pitfalls | https://www.ucdavis.edu/admissions/blog/transfer-admission-guarantee-guide-attend-your-dream-school |
-| 8 | Edvisorly — "What is an Articulation Agreement?" | Unofficial guide: plain-English explanation of how credits transfer | https://www.edvisorly.com/student-guides/what-is-an-articulation-agreement |
-| 9 | ASSIST.org | Official: which CC courses satisfy major + GE requirements | https://assist.org/ |
-| 10 | UC TAG matrix (2026–27) | Official: exact GPA, unit, and deadline requirements per campus | https://admission.universityofcalifornia.edu/_assets/files/transfer-requirements/uc-tag-matrix_2026-2027.pdf |
-| 11 | UC Transfer Requirements page | Official: junior standing, 7-course pattern, min GPA (2.4 res / 2.8 nonres) | https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/uc-transfer-programs/transfer-admission-guarantee-tag.html |
-| 12 | UC Transfer Application Guide (PDF) | Official: importing TAP coursework, TAU, deadlines | https://admission.universityofcalifornia.edu/_assets/files/how-to-apply/application-guide-transfer-applicants.pdf |
+| 1 | Reddit r/uctransfer & r/CollegeTransfer | Unofficial: TAG unit timing, 1-year transfer threads | https://www.reddit.com/r/uctransfer/ → `documents/reddit_transfer.txt` |
+| 2 | Reddit r/TransferStudents | Unofficial: finding CC courses for UC major prep via ASSIST | https://www.reddit.com/r/TransferStudents/comments/1cgmqsr/where_do_i_look_for_courses_i_need_to_transfer_to/ → `documents/reddit_course_to_transfer.txt` |
+| 3 | College Confidential — UC Transfer FAQs Part 1 | Unofficial curated FAQ: TAG, IGETC, TAP programs, unit caps | https://talk.collegeconfidential.com/t/uc-transfer-faqs-part-1/1996661 → `documents/cc_uc_transfer_faq.txt` |
+| 4 | UC Davis student TAG blog | First-person walkthrough of the TAG process and pitfalls | https://www.ucdavis.edu/admissions/blog/transfer-admission-guarantee-guide-attend-your-dream-school → `documents/uc_davis_tag_blog.txt` |
+| 5 | Edvisorly — "What is an Articulation Agreement?" | Unofficial guide: plain-English explanation of how credits transfer | https://www.edvisorly.com/student-guides/what-is-an-articulation-agreement → `documents/edvisorly.txt` |
+| 6 | UC Admissions — basic transfer requirements | Official: junior standing, 7-course pattern, min GPA (2.4 res / 2.8 nonres) | https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/basic-requirements.html → `documents/uc_transfer_requirements.txt` |
+| 7 | UC Admissions — preparing to transfer | Official: transfer planning overview, ASSIST reference | https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/preparing-to-transfer/ → `documents/uc_adimission_assist.txt` |
+| 8 | UC Admissions — UC transfer programs (TAG) | Official: TAG, Transfer Pathways, Pathways+ overview | https://admission.universityofcalifornia.edu/admission-requirements/transfer-requirements/uc-transfer-programs/ → `documents/uc_admission_tag.txt` |
+| 9 | UC TAG matrix (2026–27) | Official: exact GPA, unit, and deadline requirements per campus | https://admission.universityofcalifornia.edu/_assets/files/transfer-requirements/uc-tag-matrix_2026-2027.pdf → `documents/uc_tag_matrix.pdf` |
+| 10 | UC Transfer Application Guide (PDF) | Official: importing TAP coursework, TAU, deadlines | https://admission.universityofcalifornia.edu/_assets/files/how-to-apply/application-guide-transfer-applicants.pdf → `documents/uc_transfer_application_guide.pdf` |
 
 ---
 
@@ -158,11 +156,11 @@ Latency
 
 | # | Question | Expected answer |
 |---|----------|-----------------|
-| 1 | What is the minimum GPA a California resident needs to be eligible to transfer to a UC? | 2.4 (non-residents: 2.8). Note this is minimum eligibility, not a competitive GPA for admission. Source: UC Transfer Requirements (#11) |
-| 2 | Is a UC TAG a 100% guarantee of admission once approved? | No. TAG can be revoked if contract conditions aren't met — e.g. missing transcripts, unmet GPA, incomplete required coursework. Sources: CC "Is TAG 100% guaranteed?" thread (#6), UC Davis TAG blog (#7) |
-| 3 | How do I find which community college courses satisfy my major prep for a specific UC campus? | Use ASSIST.org — select your CC, target UC, and major to see articulated/equivalent courses. Sources: ASSIST (#9), Edvisorly articulation guide (#8) |
-| 4 | How many units do I need to reach junior standing for UC transfer? | 60 semester units or 90 quarter units of transferable coursework. Source: UC Transfer Requirements (#11) |
-| 5 | Can I use Pass/No Pass (P/NP) grades for courses required to transfer to a UC? | Generally no for major prep and most required transfer courses — UCs typically require letter grades. P/NP is usually limited (e.g., some GE). Source: College Confidential UC Transfers board (#5) |
+| 1 | What is the minimum GPA a California resident needs to be eligible to transfer to a UC? | 2.4 (non-residents: 2.8). Note this is minimum eligibility, not a competitive GPA for admission. Source: UC Admissions basic transfer requirements (#6) |
+| 2 | Is a UC TAG a 100% guarantee of admission once approved? | Conditional yes if all contract requirements are met through transfer — but admission can be lost if conditions are broken (unmet GPA, missing coursework, missed deadlines, inaccurate TAP/TAU). Sources: UC transfer programs TAG page (#8), UC Davis TAG blog (#4), UC TAG matrix (#9) |
+| 3 | How do I find which community college courses satisfy my major prep for a specific UC campus? | Use ASSIST.org — select your CC, target UC, and major to see articulated/equivalent courses. Also check each campus's major requirements on ASSIST since they can differ from Transfer Pathways. Sources: Reddit r/TransferStudents ASSIST thread (#2), Edvisorly articulation guide (#5), UC preparing to transfer (#7) |
+| 4 | How many units do I need to reach junior standing for UC transfer? | 60 semester units or 90 quarter units of transferable coursework. Source: UC Admissions basic transfer requirements (#6) |
+| 5 | Can I use Pass/No Pass (P/NP) grades for courses required to transfer to a UC? | Limited — no more than 14 semester (21 quarter) units of the required 60/90 may be pass/fail; courses generally need a C or better (letter grade). Source: UC Admissions basic transfer requirements (#6) |
 
 ---
 
