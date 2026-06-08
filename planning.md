@@ -231,6 +231,7 @@ Latency
 
 **Milestone 3 — Ingestion and chunking:**
 
+
 **Milestone 4 — Embedding and retrieval:**
 
 **Milestone 5 — Generation and interface:**
